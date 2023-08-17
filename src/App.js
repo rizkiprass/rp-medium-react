@@ -1,7 +1,7 @@
 function App() {
   return (
     <div>
-      <p>hello world-cicd</p>
+      <p>hello world-cicd-2</p>
     </div>
   );
 }
