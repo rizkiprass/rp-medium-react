@@ -9,7 +9,7 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("/api/data"); // Sesuaikan dengan URL server Express Anda
+      const response = await fetch("http://13.39.147.72/api/data"); // Sesuaikan dengan URL server Express Anda
       const jsonData = await response.json();
       setData(jsonData.message);
     } catch (error) {
