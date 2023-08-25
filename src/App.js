@@ -4,7 +4,7 @@ function App() {
   const [backendData, setBackendData] = useState({ users: [] });
 
   useEffect(() => {
-    fetch(`http://13.39.147.72:8080/api`)
+    fetch(`http://172.31.6.109:8080/api`)
       .then((response) => response.json())
       .then((data) => {
         setBackendData(data);
