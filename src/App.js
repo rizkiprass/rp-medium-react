@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
 
 function App() {
-  const [backendData, setBackendData] = useState({ users: [] });
+  const [data, setData] = useState("");
 
   useEffect(() => {
-    fetch(`http://13.39.147.72:8080/api`)
-      .then((response) => response.json())
-      .then((data) => {
-        setBackendData(data);
-      });
+    fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://172.31.6.109:8080/api/data"); // Sesuaikan dengan URL server Express Anda
+      const jsonData = await response.json();
+      setData(jsonData.message);
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+    }
+  };
+
   return (
-    <div>
-      {backendData.users.length === 0 ? (
-        <p>Loading2...</p>
-      ) : (
-        backendData.users.map((user, i) => <p key={i}>{user}</p>)
-      )}
+    <div className="App">
+      <header className="App-header">
+        <p>Data dari server Express:</p>
+        <p>{data}</p>
+      </header>
     </div>
   );
 }
