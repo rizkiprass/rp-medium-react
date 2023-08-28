@@ -51,7 +51,7 @@ function Home() {
   const [backendData, setBackendData] = useState({ users: [] });
 
   useEffect(() => {
-    fetch("http://13.39.147.72:8080/api")
+    fetch("http://pras-app-nlb-bb9f0ff88605ce50.elb.eu-west-3.amazonaws.com:8080/api")
       .then((response) => response.json())
       .then((data) => {
         setBackendData(data);
