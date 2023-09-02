@@ -45,26 +45,27 @@ function DataDisplay() {
   );
 }
 
-function Home() {
-  const [backendData, setBackendData] = useState({ users: [] });
+// function Home() {
+//   const [backendData, setBackendData] = useState({ users: [] });
 
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => {
-        setBackendData(data);
-      });
-  }, []);
+//   useEffect(() => {
+//     fetch("/api")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setBackendData(data);
+//       });
+//   }, []);
 
-  return (
-    <div>
-      {backendData.users.length === 0 ? (
-        <p>Loading...</p>
-      ) : (
-        backendData.users.map((user, i) => <p key={i}>{user}</p>)
-      )}
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       {backendData.users.length === 0 ? (
+//         <p>Loading...</p>
+//       ) : (
+//         backendData.users.map((user, i) => <p key={i}>{user}</p>)
+//       )}
+//     </div>
+//   );
+// }
 
-export default Home;
+// export default Home;
+export default DataDisplay;
