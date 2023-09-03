@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 function DataDisplay() {
   const [data, setData] = useState([]);
@@ -6,7 +7,7 @@ function DataDisplay() {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch("/db")
+    fetch(process.env.REACT_APP_DB_ENDPOINT)
       .then((response) => response.json())
       .then((data) => {
         setData(data);
@@ -20,7 +21,7 @@ function DataDisplay() {
 
   return (
     <div>
-      <h1>Data from Database</h1>
+      <h1>Data Display</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -45,27 +46,51 @@ function DataDisplay() {
   );
 }
 
-// function Home() {
-//   const [backendData, setBackendData] = useState({ users: [] });
+function Home() {
+  const [backendData, setBackendData] = useState({ users: [] });
 
-//   useEffect(() => {
-//     fetch("/api")
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setBackendData(data);
-//       });
-//   }, []);
+  useEffect(() => {
+    fetch(process.env.REACT_APP_API_ENDPOINT)
+      .then((response) => response.json())
+      .then((data) => {
+        setBackendData(data);
+      });
+  }, []);
 
-//   return (
-//     <div>
-//       {backendData.users.length === 0 ? (
-//         <p>Loading...</p>
-//       ) : (
-//         backendData.users.map((user, i) => <p key={i}>{user}</p>)
-//       )}
-//     </div>
-//   );
-// }
+  return (
+    <div>
+      <h1>Home</h1>
+      {backendData.users.length === 0 ? (
+        <p>Loading2...</p>
+      ) : (
+        backendData.users.map((user, i) => <p key={i}>{user}</p>)
+      )}
+    </div>
+  );
+}
 
-// export default Home;
-export default DataDisplay;
+function App() {
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/db">Data Display</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/db" element={<DataDisplay />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
