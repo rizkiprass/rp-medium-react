@@ -1,11 +1,18 @@
-FROM node:20-alpine
+FROM node:16-alpine
 
 WORKDIR /app
-# # add `/app/node_modules/.bin` to $PATH
-# ENV PATH /app/node_modules/.bin:$PATH
-# Bundle app source
+
+COPY package*.json ./
 COPY . .
 
+# ARG REACT_APP_API_ENDPOINT
+# ARG REACT_APP_DB_ENDPOINT
+# ENV REACT_APP_API_ENDPOINT=$REACT_APP_API_ENDPOINT
+# ENV REACT_APP_DB_ENDPOINT=$REACT_APP_DB_ENDPOINT
+
+
 RUN npm install
+
+EXPOSE 3000
 
 CMD ["npm", "start"]
