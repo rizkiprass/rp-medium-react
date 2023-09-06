@@ -46,7 +46,7 @@ function DataDisplay() {
   );
 }
 
-function Home() {
+function ApiDisplay() {
   const [backendData, setBackendData] = useState({ users: [] });
 
   useEffect(() => {
@@ -69,6 +69,15 @@ function Home() {
   );
 }
 
+function Home() {
+  return (
+    <div>
+      <h1>Home</h1>
+      <p>Test Page</p>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
@@ -79,12 +88,16 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
+              <Link to="/api">API user Display</Link>
+            </li>
+            <li>
               <Link to="/db">Data Display</Link>
             </li>
           </ul>
         </nav>
 
         <Routes>
+          <Route path="/api" element={<ApiDisplay />} />
           <Route path="/db" element={<DataDisplay />} />
           <Route path="/" element={<Home />} />
         </Routes>
