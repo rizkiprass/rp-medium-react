@@ -7,7 +7,7 @@ function DataDisplay() {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch(process.env.REACT_APP_DB_ENDPOINT)
+    fetch("/db")
       .then((response) => response.json())
       .then((data) => {
         setData(data);
@@ -50,7 +50,7 @@ function ApiDisplay() {
   const [backendData, setBackendData] = useState({ users: [] });
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_ENDPOINT)
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api`)
       .then((response) => response.json())
       .then((data) => {
         setBackendData(data);
