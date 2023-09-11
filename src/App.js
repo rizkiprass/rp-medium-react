@@ -7,7 +7,7 @@ function DataDisplay() {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch(process.env.REACT_APP_DB_ENDPOINT)
+    fetch("/db")
       .then((response) => response.json())
       .then((data) => {
         setData(data);
