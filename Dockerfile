@@ -17,28 +17,38 @@
 
 # CMD ["npm", "start"]
 
-#get the latest alpine image from node registry
+# Build stage
 FROM node:alpine AS build-stage
 
-#set the working directory
+# Set the working directory
 WORKDIR /app
 
-#copy the package and package lock files
-#from local to container work directory /app
+# Copy the package and package-lock files from local to the container
 COPY package*.json /app/
 
-#Run command npm install to install packages
+# Run npm install to install packages
 RUN npm install
 
-#copy all the folder contents from local to container
+# Copy all the folder contents from local to the container
 COPY . .
 
-#create a react production build
+# Create a React production build
 RUN npm run build
 
-#get the latest alpine image from nginx registry
+# Production stage
 FROM nginx:alpine
 
-#we copy the output from first stage that is our react build
-#into nginx html directory where it will serve our index file
-COPY --from=build-stage /app/build/ /usr/share/nginx/html
+# Remove the default Nginx configuration
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy the custom Nginx configuration to the Nginx configuration directory
+COPY nginx.conf /etc/nginx/conf.d/
+
+# Copy the built React app from the build stage to the Nginx web root directory
+COPY --from=build-stage /app/build /usr/share/nginx/html
+
+# Expose port 80 (default for HTTP traffic)
+EXPOSE 80
+
+# Start Nginx when the container runs
+CMD ["nginx", "-g", "daemon off;"]
