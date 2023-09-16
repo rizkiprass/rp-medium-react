@@ -74,6 +74,7 @@ function Home() {
     <div>
       <h1>Home</h1>
       <p>Test Page</p>
+      <p>API Endpoint: {process.env.REACT_APP_API_ENDPOINT}</p>
     </div>
   );
 }

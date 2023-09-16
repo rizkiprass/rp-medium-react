@@ -6,3 +6,4 @@ Dockerfile.prod
 .gitignore
 *.yml
 *md
+.env
