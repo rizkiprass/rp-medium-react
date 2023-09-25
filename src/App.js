@@ -69,6 +69,52 @@ function ApiDisplay() {
   );
 }
 
+function EcommerceDisplay() {
+  const [ecommerceData, setEcommerceData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch data from the API
+    fetch(process.env.REACT_APP_DBECOM_ENDPOINT) // Menggunakan endpoint yang telah dibuat
+      .then((response) => response.json())
+      .then((data) => {
+        setEcommerceData(data);
+        setLoading(false); // Data has been fetched, so loading is done
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false); // Set loading to false in case of an error too
+      });
+  }, []);
+
+  return (
+    <div>
+      <h1>Ecommerce Display</h1>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ecommerceData.map((item) => (
+              <tr key={item.id}>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
+
 function Home() {
   return (
     <div>
@@ -88,10 +134,13 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/api">API user Display</Link>
+              <Link to="/api">API User Display</Link>
             </li>
             <li>
               <Link to="/db">Data Display</Link>
+            </li>
+            <li>
+              <Link to="/ecommerce">Ecommerce Display</Link>
             </li>
           </ul>
         </nav>
@@ -99,6 +148,7 @@ function App() {
         <Routes>
           <Route path="/api" element={<ApiDisplay />} />
           <Route path="/db" element={<DataDisplay />} />
+          <Route path="/ecommerce" element={<EcommerceDisplay />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </div>
