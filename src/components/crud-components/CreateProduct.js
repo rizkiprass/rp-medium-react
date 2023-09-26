@@ -14,7 +14,7 @@ function CreateProduct({ onProductAdded }) {
 
   const handleAddProduct = () => {
     // Kirim permintaan POST ke API untuk menambahkan produk baru
-    fetch(process.env.REACT_APP_DBECOM_ENDPOINT + "/api/products", {
+    fetch(`${process.env.REACT_APP_DBECOM_ENDPOINT}/api/products`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

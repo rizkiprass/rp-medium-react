@@ -7,7 +7,7 @@ function EcommerceDisplay() {
   
     useEffect(() => {
       // Fetch data from the API
-      fetch(process.env.REACT_APP_DBECOM_ENDPOINT) // Menggunakan endpoint yang telah dibuat
+      fetch(`${process.env.REACT_APP_DBECOM_ENDPOINT}/api/products`) // Menggunakan endpoint yang telah dibuat
         .then((response) => response.json())
         .then((data) => {
           setEcommerceData(data);
