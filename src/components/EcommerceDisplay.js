@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CreateProduct from "./crud-components/CreateProduct";
+import DeleteProduct from "./crud-components/DeleteProduct";
+import UpdateProduct from "./crud-components/UpdateProduct";
 
 function EcommerceDisplay() {
   const [ecommerceData, setEcommerceData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [refreshTrigger, setRefreshTrigger] = useState(false); // Add a trigger state
+  const [refreshTrigger, setRefreshTrigger] = useState(false);
 
   useEffect(() => {
     // Fetch data from the API
@@ -18,21 +20,29 @@ function EcommerceDisplay() {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  }, [refreshTrigger]); // Add refreshTrigger as a dependency
+  }, [refreshTrigger]);
 
-  const handleProductAdded = (message) => {
-    // Anda dapat mengimplementasikan logika apa pun yang diperlukan
-    // ketika produk baru ditambahkan, seperti memperbarui tampilan, pesan, dll.
-    console.log(message);
+  const handleDeleteProduct = (productId) => {
+    // Hapus produk dari state berdasarkan ID
+    const updatedEcommerceData = ecommerceData.filter((item) => item.id !== productId);
+    setEcommerceData(updatedEcommerceData);
+  };
 
-    // Update the refreshTrigger to trigger a refresh of the useEffect
-    setRefreshTrigger(!refreshTrigger);
+  const handleUpdateProduct = (productId, updatedProduct) => {
+    // Perbarui produk dalam state berdasarkan ID
+    const updatedEcommerceData = ecommerceData.map((item) => {
+      if (item.id === productId) {
+        return updatedProduct;
+      }
+      return item;
+    });
+    setEcommerceData(updatedEcommerceData);
   };
 
   return (
     <div>
       <h1>Ecommerce Display</h1>
-      <CreateProduct onProductAdded={handleProductAdded} />
+      <CreateProduct onProductAdded={() => setRefreshTrigger(!refreshTrigger)} />
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -41,6 +51,7 @@ function EcommerceDisplay() {
             <tr>
               <th>Name</th>
               <th>Price</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +59,18 @@ function EcommerceDisplay() {
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>{item.price}</td>
+                <td>
+                  <UpdateProduct
+                    product={item}
+                    onUpdateProduct={(message) =>
+                      handleUpdateProduct(item.id, item)
+                    }
+                  />
+                  <DeleteProduct
+                    productId={item.id}
+                    onDeleteProduct={handleDeleteProduct}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
