@@ -12,7 +12,7 @@ const ProductList = () => {
         const accessToken = localStorage.getItem('accessToken');
 
         // Make a GET request to fetch products with the token in the headers
-        const response = await axios.get('http://localhost:8080/products/', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/products`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
