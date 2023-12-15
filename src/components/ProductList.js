@@ -40,6 +40,13 @@ const ProductList = () => {
             <h3>{product.ProductName}</h3>
             <p>{product.Description}</p>
             <p>Price: ${product.Price}</p>
+            {product.Image && (
+              <img
+                src={`${process.env.REACT_APP_API_URL}/uploads/${product.Image}`}
+                alt={product.ProductName}
+                style={{ maxWidth: '100px', maxHeight: '100px' }} // Adjust the size as needed
+              />
+            )}
             {/* Add more details as needed */}
           </li>
         ))}
