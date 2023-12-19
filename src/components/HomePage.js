@@ -12,7 +12,7 @@ const HomePage = () => {
         style={{ maxWidth: '100%', height: 'auto' }}
       />
       <img
-        src="https://pras-tp.s3.eu-west-3.amazonaws.com/images/apache.png"
+        src="https://d114rb3kf623dd.cloudfront.net/images/apache.png"
         alt="popcatimagelocal"
         style={{ maxWidth: '10%', height: 'auto' }}
       />
