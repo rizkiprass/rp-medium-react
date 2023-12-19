@@ -2,7 +2,7 @@
 import React from 'react';
 
 const HomePage = () => {
-  const imageUrl = 'http://localhost:8080/uploads/popcat.jpg'; // Replace with the actual image filename
+  // const imageUrl = 'http://localhost:8080/uploads/popcat.jpg'; // Replace with the actual image filename
   return (
     <div>
       <h2>Welcome to Your E-commerce App</h2>
@@ -12,7 +12,7 @@ const HomePage = () => {
         style={{ maxWidth: '100%', height: 'auto' }}
       />
       <img
-        src={imageUrl}
+        src="https://pras-tp.s3.eu-west-3.amazonaws.com/images/apache.png"
         alt="popcatimagelocal"
         style={{ maxWidth: '10%', height: 'auto' }}
       />
