@@ -1,9 +1,10 @@
-// ProductList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const [addToCartMessage, setAddToCartMessage] = useState('');
 
   const handleAddToCart = async (productId) => {
     try {
@@ -11,9 +12,9 @@ const ProductList = () => {
       const accessToken = localStorage.getItem('accessToken');
 
       // Make a POST request to add the product to the cart with the token in the headers
-      await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/cart/add`,
-        { productId, quantity: 1 }, // You can adjust the quantity as needed
+        { productId, quantity: 1 },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -21,10 +22,18 @@ const ProductList = () => {
         }
       );
 
-      console.log('Product added to cart successfully');
+      // Check if the response contains a message
+      if (response.data && response.data.payload && response.data.payload.message) {
+        setAddToCartMessage(response.data.payload.message);
+        // Optionally, you can display the message to the user
+      }
+
       // Optionally, you can provide feedback to the user that the product has been added to the cart
     } catch (error) {
-      console.error('Error adding product to cart:', error.response ? error.response.data : error.message);
+      console.error(
+        'Error adding product to cart:',
+        error.response ? error.response.data : error.message
+      );
       // Handle the error and provide feedback to the user if needed
     }
   };
@@ -52,6 +61,7 @@ const ProductList = () => {
   return (
     <div>
       <h2>Product List</h2>
+      {addToCartMessage && <p>{addToCartMessage}</p>}
       <ul>
         {products.map((product) => (
           <li key={`${product.ProductID}-${product.ProductName}`}>
@@ -60,7 +70,7 @@ const ProductList = () => {
             <p>Price: ${product.Price}</p>
             {product.Image && (
               <img
-                src={`${process.env.REACT_APP_API_URL}/uploads/${product.Image}`}
+                src={`${product.Image}`}
                 alt={product.ProductName}
                 style={{ maxWidth: '100px', maxHeight: '100px' }}
               />

@@ -16,6 +16,9 @@ const NavBar = () => {
           <Link to="/products">Products</Link>
         </li>
         <li>
+          <Link to="/add-product">Add Product</Link>
+        </li>
+        <li>
           <Link to="/cart">Cart</Link> {/* Tambahkan tautan ke halaman Cart */}
         </li>
       </ul>

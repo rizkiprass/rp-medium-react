@@ -7,6 +7,7 @@ import LoginPage from './components/LoginPage';
 import ProductList from './components/ProductList';
 import HomePage from './components/HomePage';
 import Cart from './components/Cart'; // Import komponen Cart
+import AddProduct from './components/AddProduct'; // Import AddProductPage
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/products" element={<ProductList />} />
+          <Route path="/add-product" element={<AddProduct />} />
           <Route path="/cart" element={<Cart />} /> {/* Tambahkan route untuk Cart */}
           <Route path="/" element={<HomePage />} />
         </Routes>
